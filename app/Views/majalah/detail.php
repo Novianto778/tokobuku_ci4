@@ -15,8 +15,8 @@
         <!-- Isi Detail -->
         <div class="card mb-3">
           <div class="row g-0">
-            <div class="col-md-4">
-              <img src="https://cdn.pixabay.com/photo/2017/01/31/00/09/book-2022464_960_720.png" alt="" width="50%">
+            <div class="col-md-4 d-flex justify-content-center align-items-center">
+              <img src="<?= base_url('img/' . $result['cover']) ?>" alt="" width="50%">
             </div>
             <div class="col-md-8">
               <div class="card-body">

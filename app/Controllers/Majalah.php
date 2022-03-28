@@ -62,8 +62,31 @@ class Majalah extends BaseController
       'harga' => 'required|numeric',
       'diskon' => 'permit_empty|decimal',
       'stok' => 'required|integer',
+      'sampul' => [
+        'rules' => [
+          'uploaded[sampul]',
+          'is_image[sampul]',
+          'mime_in[sampul,image/jpg,image/jpeg,image/gif,image/png]',
+          'max_size[sampul,1024]',
+        ],
+        'errors' => [
+          'max_size' => 'Gambar tidak boleh lebih dari 1MB!',
+          'is_image' => 'Yang anda pilih bukan gambar!',
+          'mime_in' => 'Yang anda pilih bukan gambar!',
+        ]
+      ]
     ])) {
       return redirect()->to('/majalah/create')->withInput();
+    }
+
+    $fileSampul = $this->request->getFile('sampul');
+    if ($fileSampul->getError() == 4) {
+      $namaFile = $this->defaultImage;
+    } else {
+      // Generate Nama file
+      $namaFile = $fileSampul->getRandomName();
+      // Pindahkan File ke Folder img di public
+      $fileSampul->move('img', $namaFile);
     }
 
     $slug = url_title($this->request->getVar('judul'), '-', true);
@@ -76,6 +99,7 @@ class Majalah extends BaseController
       'stok' => $this->request->getVar('stok'),
       'majalah_category_id' => $this->request->getVar('id_kategori'),
       'slug' => $slug,
+      'cover' => $namaFile
     ]);
     session()->setFlashdata("msg", "Data berhasil ditambahkan!");
     return redirect()->to('/majalah');
@@ -122,8 +146,38 @@ class Majalah extends BaseController
       'harga' => 'required|numeric',
       'diskon' => 'permit_empty|decimal',
       'stok' => 'required|integer',
+      'sampul' => [
+        'rules' => [
+          'uploaded[sampul]',
+          'is_image[sampul]',
+          'mime_in[sampul,image/jpg,image/jpeg,image/gif,image/png]',
+          'max_size[sampul,1024]',
+        ],
+        'errors' => [
+          'max_size' => 'Gambar tidak boleh lebih dari 1MB!',
+          'is_image' => 'Yang anda pilih bukan gambar!',
+          'mime_in' => 'Yang anda pilih bukan gambar!',
+        ]
+      ]
     ])) {
       return redirect()->to('/majalah/edit/' . $this->request->getVar('slug'))->withInput();
+    }
+
+    $namaFileLama = $this->request->getVar('sampullama');
+    $fileSampul = $this->request->getFIle('sampul');
+    // cek gambar apakah masih gambar lama
+    if ($fileSampul->getError() == 4) {
+      $namaFile = $namaFileLama;
+    } else {
+      // generate nama file
+      $namaFile = $fileSampul->getRandomName();
+      // move file ke folder img di public
+      $fileSampul->move('img', $namaFile);
+      // jika sampulnya default
+      if ($namaFileLama != $this->defaultImage && $namaFileLama != "") {
+        // hapus gambar
+        unlink('img/' . $namaFileLama);
+      }
     }
     // Membuat string menjadi huruf kecil semua dan spasinya diganti
     $slug = url_title($this->request->getVar('judul'), '-', true);
@@ -137,6 +191,7 @@ class Majalah extends BaseController
       'stok' => $this->request->getVar('stok'),
       'majalah_category_id' => $this->request->getVar('id_kategori'),
       'slug' => $slug,
+      'cover' => $namaFile
     ]);
     session()->setFlashdata("msg", "Data berhasil diubah!");
     return redirect()->to('/majalah');
@@ -144,7 +199,14 @@ class Majalah extends BaseController
 
   public function delete($id)
   {
+    $dataMajalah = $this->majalahModel->find($id);
     $this->majalahModel->delete($id);
+
+    // jika sampulnya default
+    if ($dataMajalah['cover'] != $this->defaultImage) {
+      // hapus gambar
+      unlink('img/' . $dataMajalah['cover']);
+    }
     session()->setFlashdata("msg", "Data berhasil dihapus!");
     return redirect()->to('/majalah');
   }

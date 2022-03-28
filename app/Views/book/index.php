@@ -21,6 +21,7 @@
           <thead>
             <tr>
               <th>No</th>
+              <th>Sampul</th>
               <th>Judul</th>
               <th>Kategori</th>
               <th>Harga</th>
@@ -32,6 +33,7 @@
             foreach ($result as $value) : ?>
               <tr>
                 <td><?= $no++ ?></td>
+                <td><img src="/img/<?= $value['cover'] ?>" alt="" width="100"></td>
                 <td><?= $value['title'] ?></td>
                 <td><?= $value['name_category'] ?></td>
                 <td><?= $value['price'] ?></td>

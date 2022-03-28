@@ -15,7 +15,7 @@
       <div class="card-body">
         <div class="card-body">
           <!-- Form Tambah Buku -->
-          <form action="/majalah/create" method="POST">
+          <form action="/majalah/create" method="POST" enctype="multipart/form-data">
             <?= csrf_field() ?>
             <div class="mb-3 row">
               <label for="judul" class="col-sm-2 col-form-label">Judul</label>
@@ -65,6 +65,16 @@
               </div>
             </div>
             <div class="mb-3 row">
+              <label for="sampul" class="col-sm-2 col-form-label">Sampul</label>
+              <div class="col-sm-5">
+                <input type="file" class="form-control <?= $validation->hasError('sampul') ? "is-invalid" : '' ?>" id="sampul" name="sampul" onchange="previewImage()">
+                <div id="validationServer03Feedback" class="invalid-feedback">
+                  <?= $validation->getError('sampul') ?>
+                </div>
+                <div class="col-sm-6 mt-2">
+                  <img src="/img/default.jpg" alt="" class="img-thumbnail img-preview">
+                </div>
+              </div>
               <label for="id_kategori" class="col-sm-2 col-form-label">Kategori</label>
               <div class="col-sm-3">
                 <select type="text" class="form-control" id="id_kategori" name="id_kategori">

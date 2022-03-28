@@ -15,7 +15,7 @@
       <div class="card-body">
         <div class="card-body">
           <!-- Form Tambah Buku -->
-          <form action="/book/edit/<?= $result['book_id'] ?>" method="POST">
+          <form action="/book/edit/<?= $result['book_id'] ?>" method="POST" enctype="multipart/form-data">
             <?= csrf_field() ?>
             <input type="hidden" name="slug" value="<?= $result['slug'] ?>">
             <div class="mb-3 row">
@@ -64,6 +64,17 @@
               </div>
             </div>
             <div class="mb-3 row">
+              <label for="sampul" class="col-sm-2 col-form-label">Sampul</label>
+              <div class="col-sm-5">
+                <input type="hidden" value="<?= $result['cover'] ?>" name="sampullama">
+                <input type="file" class="form-control <?= $validation->hasError('sampul') ? "is-invalid" : '' ?>" id="sampul" name="sampul" onchange="previewImage()">
+                <div id="validationServer03Feedback" class="invalid-feedback">
+                  <?= $validation->getError('sampul') ?>
+                </div>
+                <div class="col-sm-6 mt-2">
+                  <img src="/img/<?= $result['cover'] == '' ? "default.jpg" : $result['cover'] ?>" alt="" class="img-thumbnail img-preview">
+                </div>
+              </div>
               <label for="id_kategori" class="col-sm-2 col-form-label">Kategori</label>
               <div class="col-sm-3">
                 <select type="text" class="form-control" id="id_kategori" name="id_kategori">
@@ -77,7 +88,7 @@
             </div>
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
               <button class="btn btn-primary me-md-2" type="submit">Perbarui</button>
-              <button class="btn btn-danger" type="reset">Batal</button>
+              <button class="btn btn-danger" type="reset" onclick="window.location = '/book'">Batal</button>
             </div>
           </form>
         </div>

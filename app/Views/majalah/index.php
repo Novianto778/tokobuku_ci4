@@ -33,6 +33,7 @@
             foreach ($result as $value) : ?>
               <tr>
                 <td><?= $no++ ?></td>
+                <td><img src="/img/<?= $value['cover'] ?>" alt="" width="100"></td>
                 <td><?= $value['judul'] ?></td>
                 <td><?= $value['majalah_category_id'] ?></td>
                 <td><?= $value['harga'] ?></td>
