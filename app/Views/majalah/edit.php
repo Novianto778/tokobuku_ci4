@@ -90,7 +90,7 @@
             </div>
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
               <button class="btn btn-primary me-md-2" type="submit">Perbarui</button>
-              <button class="btn btn-danger" type="reset">Batal</button>
+              <button class="btn btn-danger" type="reset" onclick="window.location = '/majalah'">Batal</button>
             </div>
           </form>
         </div>

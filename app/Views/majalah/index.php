@@ -44,7 +44,7 @@
                   <form action="/majalah/<?= $value['majalah_id'] ?>" method="post" class="d-inline">
                     <?= csrf_field() ?>
                     <input type="hidden" name="_method" value="DELETE">
-                    <button class="btn btn-danger" type="submit" role="button" onclick="confirm('Apakah anda yakin?')">Hapus</button>
+                    <button class="btn btn-danger" type="submit" role="button" onclick="return confirm('Apakah anda yakin?')">Hapus</button>
                   </form>
                 </td>
               </tr>
