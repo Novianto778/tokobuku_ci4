@@ -50,6 +50,14 @@ $routes->group('majalah', function ($r) {
     $r->delete('(:num)', 'Majalah::delete/$1');
     $r->get('(:any)', 'Majalah::detail/$1');
 });
+$routes->group('supplier', function ($r) {
+    $r->get('/', 'Supplier::index');
+    $r->get('create', 'Supplier::create');
+    $r->post('create', 'Supplier::save');
+    $r->get('edit/(:num)', 'Supplier::edit/$1');
+    $r->post('edit/(:num)', 'Supplier::update/$1');
+    $r->delete('(:num)', 'Supplier::delete/$1');
+});
 
 // $routes->get('/majalah', 'Majalah::index');
 // $routes->get('/majalah/create', 'Majalah::create');

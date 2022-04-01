@@ -20,7 +20,12 @@
           <div class="sb-nav-link-icon"><i class="fas fa-address-card"></i></div>
           Data Majalah
         </a>
-
+        <!-- if (has_permission('data-supplier')) : ?> -->
+        <a href="/supplier" class="nav-link">
+          <div class="sb-nav-link-icon"><i class="fas fa-box"></i></div>
+          Data Supplier
+        </a>
+        <!--  endif; ?> -->
       </div>
     </div>
     <div class="sb-sidenav-footer">
