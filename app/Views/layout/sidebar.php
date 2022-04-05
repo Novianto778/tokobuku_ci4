@@ -25,6 +25,10 @@
           <div class="sb-nav-link-icon"><i class="fas fa-box"></i></div>
           Data Supplier
         </a>
+        <a href="/distributor" class="nav-link">
+          <div class="sb-nav-link-icon"><i class="fas fa-car"></i></div>
+          Data Distributor
+        </a>
         <!--  endif; ?> -->
       </div>
     </div>

@@ -58,6 +58,14 @@ $routes->group('supplier', function ($r) {
     $r->post('edit/(:num)', 'Supplier::update/$1');
     $r->delete('(:num)', 'Supplier::delete/$1');
 });
+$routes->group('distributor', function ($r) {
+    $r->get('/', 'Distributor::index');
+    $r->get('create', 'Distributor::create');
+    $r->post('create', 'Distributor::save');
+    $r->get('edit/(:num)', 'Distributor::edit/$1');
+    $r->post('edit/(:num)', 'Distributor::update/$1');
+    $r->delete('(:num)', 'Distributor::delete/$1');
+});
 
 // $routes->get('/majalah', 'Majalah::index');
 // $routes->get('/majalah/create', 'Majalah::create');
