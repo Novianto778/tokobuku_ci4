@@ -28,7 +28,7 @@
             </div>
             <div class="mb-3 row">
               <label for="author" class="col-sm-2 col-form-label">Penulis</label>
-              <div class=" col-sm-10">
+              <div class="col-sm-10">
                 <input type="text" class="form-control <?= $validation->hasError('penulis') ? "is-invalid" : '' ?>" id="penulis" name="penulis">
                 <div id="validationServer03Feedback" class="invalid-feedback">
                   <?= $validation->getError('penulis') ?>

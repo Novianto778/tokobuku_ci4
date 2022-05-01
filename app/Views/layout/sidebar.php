@@ -3,38 +3,50 @@
     <div class="sb-sidenav-menu">
       <div class="nav">
         <div class="sb-sidenav-menu-heading">Core</div>
-        <a class="nav-link" href="<?= base_url() ?>">
+        <a class="nav-link" href="/">
           <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
           Dashboard
         </a>
-        <div class="sb-sidenav-menu-heading">Master</div>
+        <div class="sb-sidenav-menu-heading">MASTER</div>
         <a class="nav-link" href="/book">
-          <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+          <div class="sb-nav-link-icon"><i class="fas fa-book"></i></div>
           Data Buku
         </a>
-        <a class="nav-link" href="<?= base_url() ?>/tugas">
-          <div class="sb-nav-link-icon"><i class="fas fa-address-card"></i></div>
-          Tugas Container
+        <a class="nav-link" href="/customer">
+          <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
+          Data Customer
         </a>
-        <a class="nav-link" href="/majalah">
-          <div class="sb-nav-link-icon"><i class="fas fa-address-card"></i></div>
-          Data Majalah
+        <a class="nav-link" href="">
+          <div class="sb-nav-link-icon"><i class="fas fa-bookmark"></i></div>
+          Data Kategori Buku
         </a>
-        <!-- if (has_permission('data-supplier')) : ?> -->
-        <a href="/supplier" class="nav-link">
+        <a class="nav-link" href="">
+          <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
+          Data Penulis Buku
+        </a>
+        <a class="nav-link" href="">
           <div class="sb-nav-link-icon"><i class="fas fa-box"></i></div>
           Data Supplier
         </a>
-        <a href="/distributor" class="nav-link">
-          <div class="sb-nav-link-icon"><i class="fas fa-car"></i></div>
+        <a class="nav-link" href="">
+          <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
+          Data Karyawan
+        </a>
+        <a class="nav-link" href="/distributor">
+          <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
           Data Distributor
         </a>
-        <!--  endif; ?> -->
+        <a class="nav-link" href="/distributorgrocery/index">
+          <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
+          Data Distributor Grocery
+        </a>
+
       </div>
+
     </div>
     <div class="sb-sidenav-footer">
       <div class="small">Logged in as:</div>
-      Start Bootstrap
+      Novianto
     </div>
   </nav>
 </div>

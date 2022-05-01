@@ -19,6 +19,23 @@
 <script src="<?= base_url() ?>/assets/demo/chart-bar-demo.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
 <script src="<?= base_url() ?>/js/datatables-simple-demo.js"></script>
+
+<script>
+  function previewImage() {
+    const sampul = document.querySelector('#sampul');
+    const imgPreview = document.querySelector('.img-preview');
+    const fileSampul = new FileReader();
+    fileSampul.readAsDataURL(sampul.files[0]);
+    fileSampul.onload = function(e) {
+      imgPreview.src = e.target.result;
+    }
+  }
+</script>
+<?php if (!empty($result->css_files)) : ?>
+  <?php foreach ($result->js_files as $file) : ?>
+    <script src="<?php echo $file; ?>"></script>
+  <?php endforeach; ?>
+<?php endif ?>
 </body>
 
 </html>

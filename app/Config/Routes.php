@@ -67,6 +67,10 @@ $routes->group('distributor', function ($r) {
     $r->delete('(:num)', 'Distributor::delete/$1');
 });
 
+// $routes->get('/customer/index', 'Customer::index');
+$routes->addRedirect('/customer', '/customer/index')->get('/customer/index', 'Customer::index')->setAutoRoute(true);
+$routes->addRedirect('/distributorgrocery', '/distributorgrocery/index')->get('/distributorgrocery/index', 'DistributorGrocery::index')->setAutoRoute(true);
+
 // $routes->get('/majalah', 'Majalah::index');
 // $routes->get('/majalah/create', 'Majalah::create');
 // $routes->post('/majalah/create', 'Majalah::save');

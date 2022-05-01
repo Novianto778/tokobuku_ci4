@@ -78,7 +78,7 @@ class Supplier extends BaseController
     $supplier->fill($data);
     $this->supplierModel->save($supplier);
     session()->setFlashdata("msg", "Data berhasil diperbarui!");
-    return redirect()->to('/supplier');
+    return redirect()->to('/p');
   }
 
   public function delete($id)

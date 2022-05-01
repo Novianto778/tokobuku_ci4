@@ -11,6 +11,12 @@
   <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
   <link href="<?= base_url() ?>/css/styles.css" rel="stylesheet" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+  <?php if (!empty($result->css_files)) : ?>
+    <?php foreach ($result->css_files as $file) : ?>
+      <link type="text/css" rel="stylesheet" href="<?= $file; ?>" />
+    <?php endforeach; ?>
+  <?php endif; ?>
+
 </head>
 
 <body class="sb-nav-fixed">

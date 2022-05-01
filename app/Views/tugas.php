@@ -20,23 +20,17 @@
     </div>
   </div>
   <div class="container-fluid mt-4">
-    <h6 class="text-center bg-success fw-bold mb-0 py-2">Container 2 - Data Diri</h6>
+    <h6 class="text-center bg-success fw-bold mb-0 py-2">Container 2 - Pesan dan Kesan</h6>
     <div class="row gx-0">
-      <div class="col-4 bg-info">
-        <h6 class="fs-5 text-center">Biodata</h6>
-        <ul type="none">
-          <li>Biodata diri 1</li>
-          <li>Nama: Novianto</li>
-          <li>NPM: 201710963</li>
-          <li>ASAL: Lubuklinggau</li>
-          <li>TTL Belinyu, 22-11-02</li>
-        </ul>
+      <div class="col-4 bg-info px-4">
+        <h6 class="fs-5 text-center">Pengalaman belajar SIWEB</h6>
+        <p class="small">Selama belajar SIWEB rasanya aman-aman saja tidak ada kendala yang berarti. Namun untuk materi mulai sulit ketika masuk ke modul Entity</p>
       </div>
       <div class="col-8 px-2 bg-warning">
         <h6 class="fs-5 text-center">
-          Pengalaman Saya:
+          Pesan dan Kesan Kepada Asdos
         </h6>
-        <p class="text-center">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa omnis similique quibusdam porro aut dicta! Temporibus magnam et amet labore!</p>
+        <p class="text-center">Pengalaman saya selama SIWEB lancar tanpa ada kendala jadi jarang bertanya kepada asdos. Asisten juga responsif ketika ditanya. GOOD!</p>
       </div>
     </div>
   </div>
