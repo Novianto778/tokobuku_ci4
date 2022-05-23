@@ -67,6 +67,35 @@ $routes->group('distributor', function ($r) {
     $r->delete('(:num)', 'Distributor::delete/$1');
 });
 
+$routes->group('users', function ($r) {
+    $r->get('/', 'Users::index', ['filter' => 'role:Admin, Owner1, Owner2']);
+    $r->get('create', 'Users::create', ['filter' => 'role:Admin, Owner1, Owner2']);
+    $r->delete('(:num)', 'Users::delete/$1', ['filter' => 'role:Admin, Owner1, Owner2']);
+});
+
+$routes->group('jual', function ($r) {
+    $r->get('/', 'Penjualan::index');
+    $r->get('load', 'Penjualan::loadCart');
+    $r->get('gettotal', 'Penjualan::getTotal');
+    $r->post('/', 'Penjualan::addCart');
+    $r->post('update', 'Penjualan::updateCart');
+    $r->post('bayar', 'Penjualan::pembayaran');
+    $r->delete('(:any)', 'Penjualan::deleteCart/$1');
+    $r->get('laporan', 'Penjualan::report');
+    $r->get('exportpdf', 'Penjualan::exportPDF');
+    $r->get('exportexcel', 'Penjualan::exportExcel');
+});
+
+$routes->group('beli', function ($r) {
+    $r->get('/', 'Pembelian::index');
+    $r->get('load', 'Pembelian::loadCart');
+    $r->get('gettotal', 'Pembelian::getTotal');
+    $r->post('/', 'Pembelian::addCart');
+    $r->post('update', 'Pembelian::updateCart');
+    $r->post('bayar', 'Pembelian::pembayaran');
+    $r->delete('(:any)', 'Pembelian::deleteCart/$1');
+});
+
 // $routes->get('/customer/index', 'Customer::index');
 $routes->addRedirect('/customer', '/customer/index')->get('/customer/index', 'Customer::index')->setAutoRoute(true);
 $routes->addRedirect('/distributorgrocery', '/distributorgrocery/index')->get('/distributorgrocery/index', 'DistributorGrocery::index')->setAutoRoute(true);
