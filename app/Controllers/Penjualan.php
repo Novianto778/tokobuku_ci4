@@ -248,4 +248,28 @@ class Penjualan extends BaseController
     $writer->save('php://output');
     exit();
   }
+
+  public function cetakInvoice($id)
+  {
+    $report = $this->sale->getInvoice($id);
+    $data = [
+      'title' => 'Invoice Penjualan',
+      'result' => $report,
+    ];
+
+    $html = view('penjualan/cetak-invoices', $data);
+
+    $pdf = new TCPDF('L', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+    $pdf->setPrintHeader(false);
+
+    $pdf->setPrintFooter(false);
+
+    $pdf->AddPage();
+
+    $pdf->writeHTML($html);
+
+    $this->response->setContentType('application/pdf');
+
+    $pdf->Output('invoice-penjualan.pdf', 'I');
+  }
 }

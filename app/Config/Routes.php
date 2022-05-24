@@ -84,6 +84,7 @@ $routes->group('jual', function ($r) {
     $r->get('laporan', 'Penjualan::report');
     $r->get('exportpdf', 'Penjualan::exportPDF');
     $r->get('exportexcel', 'Penjualan::exportExcel');
+    $r->get('cetakinvoice/(:any)', 'Penjualan::cetakInvoice/$1');
 });
 
 $routes->group('beli', function ($r) {
@@ -94,6 +95,9 @@ $routes->group('beli', function ($r) {
     $r->post('update', 'Pembelian::updateCart');
     $r->post('bayar', 'Pembelian::pembayaran');
     $r->delete('(:any)', 'Pembelian::deleteCart/$1');
+    $r->get('laporan', 'Pembelian::report');
+    $r->get('exportpdf', 'Pembelian::exportPDF');
+    $r->get('exportexcel', 'Pembelian::exportExcel');
 });
 
 // $routes->get('/customer/index', 'Customer::index');

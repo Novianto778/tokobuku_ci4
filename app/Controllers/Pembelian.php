@@ -6,6 +6,9 @@ use \App\Models\BookModel;
 use \App\Models\SupplierModel;
 use \App\Models\PurchaseModel;
 use \App\Models\PurchaseDetailModel;
+use TCPDF;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class Pembelian extends BaseController
 {
@@ -117,7 +120,7 @@ class Pembelian extends BaseController
       }
 
       $nominal = $this->request->getVar('nominal');
-      $id = "J" . time();
+      $id = "B" . time();
 
       // Pengecekan apakah nominal yang dimasukkan cukup atau kurang
       if ($nominal < $totalBayar) {
@@ -165,5 +168,78 @@ class Pembelian extends BaseController
         echo json_encode($response);
       }
     }
+  }
+
+  public function report()
+  {
+    $report = $this->purchase->getReport();
+    $data = [
+      'title' => 'Laporan Pembelian',
+      'result' => $report,
+    ];
+    return view('pembelian/report', $data);
+  }
+
+  public function exportPDF()
+  {
+
+    $report = $this->purchase->getReport();
+    $data = [
+      'title' => 'Laporan Pembelian',
+      'result' => $report,
+    ];
+    $html = view('pembelian/exportPDF', $data);
+
+    $pdf = new TCPDF('L', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+    $pdf->setPrintHeader(false);
+
+    $pdf->setPrintFooter(false);
+
+    $pdf->AddPage();
+
+    $pdf->writeHTML($html);
+
+    $this->response->setContentType('application/pdf');
+
+    $pdf->Output('laporan-pembelian.pdf', 'I');
+  }
+
+  public function exportExcel()
+  {
+    $report = $this->purchase->getReport();
+    $spreadsheet = new Spreadsheet();
+    // tulis header/nama kolom
+    $spreadsheet->setActiveSheetIndex(0)
+      ->setCellValue('A1', 'No')
+      ->setCellValue('B1', 'Nota')
+      ->setCellValue('C1', 'Tgl Transaksi')
+      ->setCellValue('D1', 'User')
+      ->setCellValue('E1', 'Supplier')
+      ->setCellValue('F1', 'Total');
+
+    // tulis data mobil ke cell
+    $rows = 2;
+    $no = 1;
+    foreach ($report as $value) {
+      $spreadsheet->setActiveSheetIndex(0)
+        ->setCellValue('A' . $rows, $no++)
+        ->setCellValue('B' . $rows, $value['purchase_id'])
+        ->setCellValue('C' . $rows, $value['tgl_transaksi'])
+        ->setCellValue('D' . $rows, $value['firstname'] . ' ' . $value['lastname'])
+        ->setCellValue('E' . $rows, $value['name_supp'])
+        ->setCellValue('F' . $rows, $value['total']);
+      $rows++;
+    }
+    // tulis dalam format .xlsx
+    $writer = new Xlsx($spreadsheet);
+    $fileName = 'Laporan-Pembelian';
+    // Redirect hasil generate xlsx ke web client
+
+    header('Content-Type:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    header('Content-Disposition: attachment;filename=' . $fileName . '.xlsx');
+    header('Cache-Control: max-age=0');
+
+    $writer->save('php://output');
+    exit();
   }
 }

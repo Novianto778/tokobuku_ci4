@@ -28,7 +28,7 @@
         <div class="collapse" id="collapselayouts2" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
           <nav class="sb-sidenav-menu-nested nav">
             <a class="nav-link" href="/beli">Transaksi</a>
-            <a class="nav-link" href="">Laporan</a>
+            <a class="nav-link" href="/beli/laporan">Laporan</a>
           </nav>
         </div>
         <div class="sb-sidenav-menu-heading">MASTER</div>
