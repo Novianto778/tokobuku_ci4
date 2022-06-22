@@ -10,6 +10,9 @@
     <?php if (session()->getFlashdata('msg')) : ?>
       <div class="alert alert-success"><?= session()->getFlashdata('msg') ?></div>
     <?php endif; ?>
+    <?php if (session()->getFlashdata('warning')) : ?>
+      <div class="alert alert-danger"><?= session()->getFlashdata('warning') ?></div>
+    <?php endif; ?>
     <div class="card mb-4">
       <div class="card-header">
         <i class="fas fa-table me-1"></i>
@@ -17,6 +20,7 @@
       </div>
       <div class="card-body">
         <a href="/majalah/create" class="btn btn-primary mb-3" type="button">Tambah Majalah</a>
+        <a class="btn btn-dark mb-3" type="button" data-bs-target="#modalImport2" data-bs-toggle="modal">Import Majalah</a>
         <table id="datatablesSimple">
           <thead>
             <tr>
@@ -56,4 +60,6 @@
     </div>
   </div>
 </main>
+<?= $this->include('majalah/modal') ?>
+
 <?= $this->endSection() ?>

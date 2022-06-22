@@ -4,6 +4,8 @@ namespace App\Controllers;
 
 use App\Models\MajalahCategoryModel;
 use App\Models\MajalahModel;
+use PhpOffice\PhpSpreadsheet\Reader\Xls;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
 class Majalah extends BaseController
 {
@@ -208,6 +210,44 @@ class Majalah extends BaseController
       unlink('img/' . $dataMajalah['cover']);
     }
     session()->setFlashdata("msg", "Data berhasil dihapus!");
+    return redirect()->to('/majalah');
+  }
+
+  public function importData()
+  {
+    $file = $this->request->getFile("file");
+    $ext = $file->getExtension();
+    if ($ext == "xls")
+      $reader = new Xls();
+    else
+      $reader = new Xlsx();
+    $spreadsheet = $reader->load($file);
+    $sheet = $spreadsheet->getActiveSheet()->toArray();
+
+    foreach ($sheet as $key => $value) {
+      if ($key == 0) continue;
+      $namaFile = $this->defaultImage;
+      $slug = url_title((string)$value[1], '-', true);
+      // Cek judul
+      $dataOld = $this->majalahModel->getMajalah($slug);
+      // echo "<script>console.log('test " . json_encode($dataOld) . " ')</script>";
+      if ($dataOld['judul'] != $value[1] || empty($dataOld)) {
+        $this->majalahModel->save([
+          'judul' => $value[1],
+          'penerbit' => $value[2],
+          'tahun' => $value[3],
+          'harga' => $value[4],
+          'diskon' => $value[5] ?? 0,
+          'stok' => $value[6],
+          'majalah_category_id' => $value[7],
+          'slug' => $slug,
+          'cover' => $namaFile
+        ]);
+        session()->setFlashdata("msg", "Data berhasil diimport!");
+      } else {
+        session()->setFlashdata("warning", "Data sudah ada!");
+      }
+    }
     return redirect()->to('/majalah');
   }
 }

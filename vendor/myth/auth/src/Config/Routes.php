@@ -10,7 +10,7 @@ $routes->group('', ['namespace' => 'Myth\Auth\Controllers'], function ($routes) 
     $routes->get('logout', 'AuthController::logout');
 
     // Registration
-    // $routes->get('register', 'AuthController::register', ['as' => 'register']);
+    $routes->get('register', 'AuthController::register', ['as' => 'register']);
     $routes->post('register', 'AuthController::attemptRegister');
 
     // Activation

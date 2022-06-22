@@ -4,6 +4,8 @@ namespace App\Controllers;
 
 use \App\Models\BookModel;
 use \App\Models\CategoryModel;
+use PhpOffice\PhpSpreadsheet\Reader\Xls;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
 class Book extends BaseController
 {
@@ -150,15 +152,14 @@ class Book extends BaseController
       'stok' => 'required|integer',
       'sampul' => [
         'rules' => [
-          'uploaded[sampul]',
           'is_image[sampul]',
           'mime_in[sampul,image/jpg,image/jpeg,image/gif,image/png]',
           'max_size[sampul,1024]',
         ],
         'errors' => [
           'max_size' => 'Gambar tidak boleh lebih dari 1MB!',
-          'is_image' => 'Yang anda pilih bukan gambar!',
           'mime_in' => 'Yang anda pilih bukan gambar!',
+          'is_image' => 'Yang anda pilih bukan gambar!'
         ]
       ]
     ])) {
@@ -166,7 +167,8 @@ class Book extends BaseController
     }
 
     $namaFileLama = $this->request->getVar('sampullama');
-    $fileSampul = $this->request->getFIle('sampul');
+
+    $fileSampul = $this->request->getFile('sampul');
     // cek gambar apakah masih gambar lama
     if ($fileSampul->getError() == 4) {
       $namaFile = $namaFileLama;
@@ -176,7 +178,7 @@ class Book extends BaseController
       // move file ke folder img di public
       $fileSampul->move('img', $namaFile);
       // jika sampulnya default
-      if ($namaFileLama != $this->defaultImage && $namaFileLama != "") {
+      if ($namaFileLama != $this->defaultImage) {
         // hapus gambar
         unlink('img/' . $namaFileLama);
       }
@@ -212,6 +214,41 @@ class Book extends BaseController
     }
 
     session()->setFlashdata("msg", "Data berhasil dihapus!");
+    return redirect()->to('/book');
+  }
+
+  public function importData()
+  {
+    $file = $this->request->getFile("file");
+    $ext = $file->getExtension();
+    if ($ext == "xls")
+      $reader = new Xls();
+    else
+      $reader = new Xlsx();
+    $spreadsheet = $reader->load($file);
+    $sheet = $spreadsheet->getActiveSheet()->toArray();
+
+    foreach ($sheet as $key => $value) {
+      if ($key == 0) continue;
+      $namaFile = $this->defaultImage;
+      $slug = url_title($value[1], '-', true);
+      // Cek judul
+      $dataOld = $this->bookModel->getBook($slug);
+      if ($dataOld['title'] != $value[1]) {
+        $this->bookModel->save([
+          'title' => $value[1],
+          'author' => $value[2],
+          'release_year' => $value[3],
+          'price' => $value[4],
+          'discount' => $value[5] ?? 0,
+          'stock' => $value[6],
+          'book_category_id' => $value[7],
+          'slug' => $slug,
+          'cover' => $namaFile
+        ]);
+      }
+    }
+    session()->setFlashdata("msg", "Data berhasil diimport!");
     return redirect()->to('/book');
   }
 }

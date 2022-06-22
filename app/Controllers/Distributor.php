@@ -20,7 +20,7 @@ class Distributor extends BaseController
       'title' => 'Data Distributor',
       'result' => $dataDistributor
     ];
-    return view('Distributor/list', $data);
+    return view('distributor/list', $data);
   }
 
   public function create()

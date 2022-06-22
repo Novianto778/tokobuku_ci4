@@ -17,6 +17,7 @@
       </div>
       <div class="card-body">
         <a href="/book/create" class="btn btn-primary mb-3" type="button">Tambah Buku</a>
+        <a class="btn btn-dark mb-3" type="button" data-bs-target="#modalImport" data-bs-toggle="modal">Import Buku</a>
         <table id="datatablesSimple">
           <thead>
             <tr>
@@ -56,4 +57,5 @@
     </div>
   </div>
 </main>
+<?= $this->include('book/modal') ?>
 <?= $this->endSection() ?>

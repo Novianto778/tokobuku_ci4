@@ -32,6 +32,10 @@ $routes->setAutoRoute(false);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
+$routes->post('/chart-transaksi', 'Home::showChartTransaksi');
+$routes->post('/chart-pembelian', 'Home::showChartPembelian');
+$routes->post('/chart-customer', 'Home::showChartCustomer');
+$routes->post('/chart-supplier', 'Home::showChartSupplier');
 $routes->group('book', function ($r) {
     $r->get('/', 'Book::index');
     $r->get('create', 'Book::create');
@@ -40,6 +44,7 @@ $routes->group('book', function ($r) {
     $r->post('edit/(:any)', 'Book::update/$1');
     $r->delete('(:num)', 'Book::delete/$1');
     $r->get('(:any)', 'Book::detail/$1');
+    $r->post('import', 'Book::importData');
 });
 $routes->group('majalah', function ($r) {
     $r->get('/', 'Majalah::index');
@@ -49,6 +54,8 @@ $routes->group('majalah', function ($r) {
     $r->post('edit/(:any)', 'Majalah::update/$1');
     $r->delete('(:num)', 'Majalah::delete/$1');
     $r->get('(:any)', 'Majalah::detail/$1');
+    $r->post('import', 'Majalah::importData');
+
 });
 $routes->group('supplier', function ($r) {
     $r->get('/', 'Supplier::index');

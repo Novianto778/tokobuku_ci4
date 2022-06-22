@@ -39,6 +39,13 @@
           </a>
         <?php endif; ?>
 
+        <?php if (has_permission('data-buku')) : ?>
+          <a class="nav-link" href="/majalah">
+            <div class="sb-nav-link-icon"><i class="fas fa-book"></i></div>
+            Data Majalah
+          </a>
+        <?php endif; ?>
+
         <?php if (has_permission('data-customer')) : ?>
           <a class="nav-link" href="/customer">
             <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
